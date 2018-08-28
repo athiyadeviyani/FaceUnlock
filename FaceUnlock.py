@@ -4,7 +4,6 @@ import os
 import dlib
 from imutils import face_utils
 import imutils
-import keyboard
 import subprocess
 import re
 
@@ -30,7 +29,7 @@ def getImages(path):
     imagePaths = [os.path.join(path, f) for f in os.listdir(path)]
 
     for imagePath in imagePaths:
-        if imagePath == '/Users/Edon/PycharmProjects/FaceRecognition/facedata/.DS_Store':
+        if imagePath == 'facedata/.DS_Store':
             continue  # ignores the .DS_Store file (hidden by default)
         name = os.path.split(imagePath)[-1].split(".")[0]
         known_face_names.append(name)
@@ -69,18 +68,13 @@ def faceUnlock():
                 for face_encoding in face_encodings:
                     # See if the face is a match for the known face(s)
                     matches = face_recognition.compare_faces(known_face_encodings, face_encoding)
-                    name = "Unknown"
-
                     # If a match was found in known_face_encodings, just use the first one.
                     if True in matches:
                         first_match_index = matches.index(True)
-                        name = known_face_names[first_match_index]
                         os.system("""osascript -e 'tell application "system events" to key code 123'\nosascript -e 'tell application "system events" to keystroke """ + '"' + passwordstr + '"' + """'\nosascript -e 'tell application "system events" to keystroke return'""")
                         os.system("""caffeinate  -u -t 2""")
                         break
-
-                    face_names.append(name)
-
+                        
             process_this_frame = not process_this_frame
 
                 # Hit 'q' on the keyboard to quit!
