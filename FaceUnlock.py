@@ -20,7 +20,7 @@ def display_status():
     return(x["power"])
 
 
-path = "/Users/Edon/PycharmProjects/FaceRecognition/facedata"
+path = "/facedata"
 known_face_encodings = []
 known_face_names = []
 
